@@ -11,8 +11,10 @@
 
 import torch
 import math
-from rgbd_rasterization import GaussianRasterizationSettings, GaussianRasterizer
-import channel_rasterization as chn_rasterize
+from diff_gaussian_rasterization import GaussianRasterizationSettings, GaussianRasterizer
+
+#from rgbd_rasterization import GaussianRasterizationSettings, GaussianRasterizer
+#import channel_rasterization as chn_rasterize
 from model.gaussian_model import GaussianModel
 from utils.sh_utils import eval_sh
 
@@ -108,7 +110,9 @@ def render(
     else:
         colors_precomp = override_color
     # Rasterize visible Gaussians to image, obtain their radii (on screen).
-    rendered_image, radii, depth = rasterizer(
+    #rendered_image, radii, depth = rasterizer(
+    rendered_image, radii = rasterizer(
+    
         means3D=means3D,
         means2D=means2D,
         shs=shs,
@@ -126,7 +130,7 @@ def render(
         "viewspace_points": screenspace_points,
         "visibility_filter": radii > 0,
         "radii": radii,
-        "depth": depth,
+    #    "depth": depth,
     }
 
 
@@ -166,7 +170,7 @@ def render_chn(
         image_height = int(viewpoint_camera.image_height)
         image_width = int(viewpoint_camera.image_width)
 
-    raster_settings = chn_rasterize.GaussianRasterizationSettings(
+    raster_settings = GaussianRasterizationSettings(
         image_height=image_height,
         image_width=image_width,
         tanfovx=tanfovx,
@@ -182,7 +186,7 @@ def render_chn(
         num_channels=num_channels,
     )
 
-    rasterizer = chn_rasterize.GaussianRasterizer(raster_settings=raster_settings)
+    rasterizer = GaussianRasterizer(raster_settings=raster_settings)
 
     means3D = pc.get_xyz
     means2D = screenspace_points

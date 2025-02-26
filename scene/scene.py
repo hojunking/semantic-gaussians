@@ -37,7 +37,6 @@ class Scene:
     def __init__(self, args, resolution_scales=[1.0]):
         self.train_cameras = {}
         self.test_cameras = {}
-
         # load scene
         if os.path.exists(os.path.join(args.scene_path, "pose")):
             print("Found pose directory, assuming ScanNet data set!")

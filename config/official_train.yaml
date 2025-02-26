@@ -1,5 +1,5 @@
 scene:
-  scene_path: "/PATH/TO/YOUR/OWN"
+  scene_path: "/workdir/dataset/360_v2/bicycle"
   test_cameras: True
   colmap_images: "images"
   colmap_eval_hold: 8
@@ -15,13 +15,13 @@ pipeline:
 
 model:
   sh_degree: 3
-  model_dir: ~
+  model_dir: '/workdir/3D_model_results'
   load_iteration: -1
   device: "cuda:0"
   random_init: False
 
 train:
-  exp_name: "EXP_NAME"
+  exp_name: "bicycle_test"
   iterations: 30000
   num_workers: 8
   test_iterations: [100, 7000, 30000]

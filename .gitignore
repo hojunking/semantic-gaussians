@@ -10,6 +10,9 @@ fusion/
 __pycache__/
 *.py[cod]
 *$py.class
+dataset/360_v2
+dataset/scannet/scans
+dataset/scannet/scans_preprocessed
 
 # C extensions
 *.so
