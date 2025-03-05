@@ -13,6 +13,7 @@ __pycache__/
 dataset/360_v2
 dataset/scannet/scans
 dataset/scannet/scans_preprocessed
+dataset/scannet/scannet_samples_pre
 
 # C extensions
 *.so

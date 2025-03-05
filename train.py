@@ -6,7 +6,7 @@ from functools import partial
 from omegaconf import OmegaConf
 from torch.utils.tensorboard import SummaryWriter
 from torch.utils.data import DataLoader
-
+import argparse
 from model import GaussianModel
 from model.renderer import render
 from scene import Scene
@@ -214,11 +214,20 @@ def train(config):
                 progress_bar.close()
 
 
-if __name__ == "__main__":
-    config = OmegaConf.load("./config/official_train.yaml")
-    override_config = OmegaConf.from_cli()
+def main():
+    # 커맨드라인 인자 파싱
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config", type=str, default="./config/official_train.yaml", help="Path to config file")
+    args, unknown = parser.parse_known_args()  # unknown은 OmegaConf.from_cli()용
+    
+    # Config 로드
+    config = OmegaConf.load(args.config)
+    override_config = OmegaConf.from_cli(unknown)  # 나머지 CLI 인자 처리
     config = OmegaConf.merge(config, override_config)
     print(OmegaConf.to_yaml(config))
 
     set_seed(config.pipeline.seed)
     train(config)
+
+if __name__ == "__main__":
+    main()
