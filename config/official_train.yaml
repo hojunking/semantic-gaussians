@@ -1,5 +1,5 @@
 scene:
-  scene_path: "/workdir/dataset/scannet/scannet_samples_pre/scene0248_02"
+  scene_path: "/workdir/dataset/scannet/scannet_samples_pre/scene0000_00"
   test_cameras: True
   colmap_images: "images"
   colmap_eval_hold: 8
