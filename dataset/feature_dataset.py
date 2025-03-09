@@ -22,7 +22,7 @@ class FeatureDataset(Dataset):
     ROTATION_AXIS = "z"
 
     def __init__(
-        self, gaussians_dir, point_dir, gaussian_iterations=30000, voxel_size=0.02, aug=False, feature_type="all"
+        self, gaussians_dir, point_dir, gaussian_iterations=10000, voxel_size=0.02, aug=False, feature_type="all"
     ):
         self.aug = aug
         self.feature_type = feature_type

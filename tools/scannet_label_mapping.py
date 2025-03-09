@@ -44,16 +44,18 @@ def map_labels_3dgs_to_scannet(gaussians_ply_path, scannet_ply_path, scannet_lab
     return mapped_labels
 
 # 전체 샘플 데이터 처리
-gaussians_dir = "/home/knuvi/Desktop/song/semantic-gaussians/output/train_samples"
-scannet_dir = "/home/knuvi/Desktop/song/data/scannet_sample/train"
+gaussians_dir = "/home/knuvi/Desktop/song/semantic-gaussians/dataset/scannet/scannet_samples_pre/valid"
+scannet_dir = "/home/knuvi/Desktop/song/data/scannet_sample/valid"
 scenes = os.listdir(scannet_dir)
 scenes.sort()
 
 for scene in tqdm(scenes, desc="Processing Scenes"):
-    gaussians_ply_path = os.path.join(gaussians_dir, scene, "point_cloud", "iteration_10000", "point_cloud.ply")
+    #gaussians_ply_path = os.path.join(gaussians_dir, scene, "point_cloud", "iteration_10000", "point_cloud.ply")
+    gaussians_ply_path = os.path.join(gaussians_dir, scene, "points3d.ply")
+    
     scannet_ply_path = os.path.join(scannet_dir, scene, f"{scene}_vh_clean_2.ply")
     scannet_labels_path = os.path.join(scannet_dir, scene, f"{scene}_vh_clean_2.labels.ply")
-    output_labels_path = os.path.join(gaussians_dir, scene, "final_labels.npy")
+    output_labels_path = os.path.join(gaussians_dir, scene, "labels.npy")
 
     if not os.path.exists(gaussians_ply_path):
         print(f"Warning: {gaussians_ply_path} does not exist. Skipping...")
