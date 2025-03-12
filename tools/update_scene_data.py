@@ -31,27 +31,27 @@ def update_scene_data(raw_scannet_path, sample_root, scene_name):
         os.remove(point3d_ply_dest)
         print(f"Removed existing {point3d_ply_dest}")
 
-    # vh_clean_2.ply 복사 (point3d.ply로 저장)
-    # shutil.copy2(vh_clean_ply_src, point3d_ply_dest)
-    # print(f"Copied {vh_clean_ply_src} to {point3d_ply_dest}")
+    #vh_clean_2.ply 복사 (point3d.ply로 저장)
+    shutil.copy2(vh_clean_ply_src, point3d_ply_dest)
+    print(f"Copied {vh_clean_ply_src} to {point3d_ply_dest}")
 
-    # # vh_clean_2.labels.ply 가져오기
-    # labels_ply_src = os.path.join(raw_scene_dir, f"{scene_name}_vh_clean_2.labels.ply")
-    # labels_ply_dest = os.path.join(scene_dir, "vh_clean_2.labels.ply")
+    # vh_clean_2.labels.ply 가져오기
+    labels_ply_src = os.path.join(raw_scene_dir, f"{scene_name}_vh_clean_2.labels.ply")
+    labels_ply_dest = os.path.join(scene_dir, "vh_clean_2.labels.ply")
 
-    # if os.path.exists(labels_ply_src):
-    #     shutil.copy2(labels_ply_src, labels_ply_dest)
-    #     print(f"Copied {labels_ply_src} to {labels_ply_dest}")
-    # else:
-    #     print(f"Warning: {labels_ply_src} not found. Skipping labels for {scene_name}...")
+    if os.path.exists(labels_ply_src):
+        shutil.copy2(labels_ply_src, labels_ply_dest)
+        print(f"Copied {labels_ply_src} to {labels_ply_dest}")
+    else:
+        print(f"Warning: {labels_ply_src} not found. Skipping labels for {scene_name}...")
 
     return True
 
 def main():
     # 인자 파싱
     parser = argparse.ArgumentParser(description="Update point3d.ply with vh_clean_2.ply from raw ScanNet data.")
-    parser.add_argument("--raw_scannet_path", default= '/media/knuvi/Desk SSD/hojun/scans', help="Path to the raw ScanNet dataset")
-    parser.add_argument("--sample_root", default="/home/knuvi/Desktop/song/data/scannet_sample_train100", help="Path to the sample train directory")
+    parser.add_argument("--raw_scannet_path", default= '/media/song/Desk SSD/hojun/scans', help="Path to the raw ScanNet dataset")
+    parser.add_argument("--sample_root", default="/home/song/Desktop/song/data/scans_preprocessed", help="Path to the sample train directory")
     args = parser.parse_args()
     
     # scene 목록 가져오기
@@ -59,6 +59,11 @@ def main():
     scene_dirs.sort()
 
     print(f"Found {len(scene_dirs)} scenes in {args.sample_root}")
+    
+    # from_scene_dirs = [d for d in os.listdir(args.raw_scannet_path) if os.path.isdir(os.path.join(args.raw_scannet_path, d))]
+    # from_scene_dirs.sort()
+
+    # print(f"Found {len(from_scene_dirs)} scenes in {args.raw_scannet_path}")
 
     # 각 scene 처리
     for scene_name in scene_dirs:
